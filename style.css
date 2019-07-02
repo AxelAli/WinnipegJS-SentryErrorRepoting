@@ -1,0 +1,13 @@
+body {
+  font-size: 3rem;
+  background-color: slateblue;
+  color: white;
+  text-align: center;
+}
+body select {
+  font-size: 3rem;
+  text-align: center;
+}
+body button {
+  font-size: 3rem;
+}

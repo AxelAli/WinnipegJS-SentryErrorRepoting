@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <title>Crypto Prices</title>
+    <link rel="stylesheet" href="style.css" />
+  </head>
+  <body>
+    <h1>Get Crypto prices!</h1>
+    <select id="currency">
+      <option>Select a currency</option>
+      <option value="bitcoin">Bitcoin</option>
+      <option value="litecoin">Litecoin</option> </select
+    ><br />
+    <button onclick="getPrice()">Calculate</button><br />
+    <span id="result"></span>
+
+    <script>
+      async function getPrice() {
+        var currency = document.getElementById("currency").value;
+        document.getElementById("result").innerHTML = await fetch(
+          `https://api.coinmarketcap.com/v1/ticker/${currency}/`
+        )
+          .then(result => result.json())
+          .then(data => data[0]["price_usd"]);
+      }
+    </script>
+  </body>
+</html>
