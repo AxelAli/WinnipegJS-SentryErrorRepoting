@@ -12,12 +12,32 @@
       <option value="bitcoin">Bitcoin</option>
       <option value="litecoin">Litecoin</option> </select
     ><br />
-    <button onclick="getPrice()">Calculate</button><br />
+    <button id="getPriceButton" onclick="getPrice()">Calculate</button><br />
     <span id="result"></span>
 
     <script src="https://browser.sentry-cdn.com/5.4.3/bundle.min.js" crossorigin="anonymous"></script>
     <script>
-      Sentry.init({ dsn: 'YOUR_DSN@SENTRY' });
+      Sentry.init({
+        dsn: 'YOUR_DSN@SENTRY',
+        beforeBreadcrumb(breadcrumb, hint) {
+          const event = hint && hint.event;
+          switch (breadcrumb.category) {
+            case "ui.click":
+            case "ui.input":
+              return event.target.id
+                ? Object.assign(breadcrumb, {
+                    message:
+                      `UI item '${event.target.id}'` +
+                      (event.target.value &&
+                        ` with value '${event.target.value}'`)
+                  })
+                : false;
+
+            default:
+              return breadcrumb;
+          }
+        }
+      });
       async function getPrice() {
         var currency = document.getElementById("currency").value;
         document.getElementById("result").innerHTML = await fetch(
