@@ -17,6 +17,7 @@
 
     <script src="https://browser.sentry-cdn.com/5.4.3/bundle.min.js" crossorigin="anonymous"></script>
     <script>
+      Sentry.init({ dsn: 'YOUR_DSN@SENTRY' });
       async function getPrice() {
         var currency = document.getElementById("currency").value;
         document.getElementById("result").innerHTML = await fetch(
