@@ -38,6 +38,9 @@
           }
         }
       });
+      Sentry.configureScope((scope) => {
+           scope.setUser({"email": "john.doe@example.com"});
+      });
       async function getPrice() {
         var currency = document.getElementById("currency").value;
         document.getElementById("result").innerHTML = await fetch(
